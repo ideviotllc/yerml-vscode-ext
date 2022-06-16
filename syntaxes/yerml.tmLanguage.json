@@ -1,0 +1,50 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "YERML",
+	"patterns": [
+		{
+			"include": "#comment"
+		},
+		{
+			"include": "#constraint"
+		},
+		{
+			"match": "^---",
+			"name": "entity.other.document.begin.yerml"
+		},
+		{
+			"match": "^\\.{3}",
+			"name": "entity.other.document.end.yerml"
+		}
+	],
+	"repository": {
+		"comment": {
+			"begin": "(?:(^[ \\t]*)|[ \\t]+)(?=#\\p{Print}*$)",
+			"beginCaptures": {
+				"1": {
+					"name": "punctuation.whitespace.comment.leading.yerml"
+				}
+			},
+			"end": "(?!\\G)",
+			"patterns": [
+				{
+					"begin": "#",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.comment.yerml"
+						}
+					},
+					"end": "\\n",
+					"name": "comment.line.number-sign.yerml"
+				}
+			]
+		},
+		"constraint": {
+			"patterns": [{
+				"name": "constraint.yerml",
+				"match": "\\b(\\<|\\>|\\<=|\\>=|\\!=|[Cc]=|_=|=)\\b"
+			}]
+		}
+	},
+	"scopeName": "source.yerml"
+}
