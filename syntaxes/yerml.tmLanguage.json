@@ -1,20 +1,32 @@
 {
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"name": "YERML",
+	"scopeName": "source.yerml", 
 	"patterns": [
 		{
 			"include": "#comment"
 		},
 		{
-			"include": "#constraint"
+			"name": "entity.other.document.begin.yerml",
+			"match": "^---"
 		},
 		{
-			"match": "^---",
-			"name": "entity.other.document.begin.yerml"
+			"name": "entity.other.document.end.yerml",
+			"match": "^\\.{3}"
 		},
 		{
-			"match": "^\\.{3}",
-			"name": "entity.other.document.end.yerml"
+			"name": "constant.numeric.entity.descriptor.count.yerml",
+			"include": "#entity_count"
+			
+		},
+		{
+			"name": "storage.type.entity.descriptor.type.yerml",
+			"include": "#entity_type"
+
+		},
+		{
+			"name": "keyword.operator.entity.descriptor.constraint.yerml",
+			"include": "#entity_contraint"
 		}
 	],
 	"repository": {
@@ -39,12 +51,67 @@
 				}
 			]
 		},
-		"constraint": {
-			"patterns": [{
-				"name": "constraint.yerml",
-				"match": "\\b(\\<|\\>|\\<=|\\>=|\\!=|[Cc]=|_=|=)\\b"
-			}]
+		"odlm": {
+			"patterns": [
+				{
+					"name": "delimeter.optional.yerml",
+					"match": "(^[ \\t]*)"
+				}
+			] 
+		},
+		"idlm": {
+			"patterns": [
+				{
+					"name": "delimeter.inline.yerml",
+					"match": "(^[ \\t]+)"
+				}
+			] 
+		},
+		"entity_name": {
+			"patterns": [
+				{
+					"match": "[a-z_]+[A-Za-z0-9_-]+"
+				}
+			]
+		},
+		"entity_type_name": {
+			"patterns": [
+				{
+					"match": "[A-Za-z_]+[A-Za-z0-9_-]+"
+				}
+			]
+		},
+		"entity_count": {
+			"patterns": [
+				{
+					"begin": "(?:(^#odlm#entity_name#odlm:#idlm[ \\t\\S]*))",
+					"match": "([0-9]+)|([+-*])|([0-9]+[+-*])",
+					"end": ""
+				}
+			]			
+		},
+		"entity_type": {
+			"patterns": [
+				{
+					"begin": "(?:(^#odlm#entity_name#odlm:#idlm[ \\t\\S]*))",
+					"match": "#entity_type_name",
+					"end": ""
+				},
+				{
+					"begin": "(?:(^))",
+					"match": "#entity_type_name",
+					"end": "(?:(:))"
+				}
+			]			
+		},
+		"entity_constraint": {
+			"patterns": [
+				{
+					"begin": "(?:(^#odlm#entity_name#odlm:#idlm[ \\t\\S]*))",
+					"match": "(\\<|\\>|\\<=|\\>=|\\!=|[Cc]=|_=|=)",
+					"end": ""
+				}
+			]
 		}
-	},
-	"scopeName": "source.yerml"
+	}
 }
