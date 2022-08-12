@@ -15,18 +15,13 @@
 			"match": "^\\.{3}"
 		},
 		{
-			"name": "constant.numeric.entity.descriptor.count.yerml",
-			"include": "#entity_count"
-			
+			"include": "#import"
 		},
 		{
-			"name": "storage.type.entity.descriptor.type.yerml",
-			"include": "#entity_type"
-
+			"include": "#import-path"
 		},
 		{
-			"name": "keyword.operator.entity.descriptor.constraint.yerml",
-			"include": "#entity_contraint"
+			"include": "#entity-count"
 		}
 	],
 	"repository": {
@@ -51,65 +46,80 @@
 				}
 			]
 		},
-		"odlm": {
-			"patterns": [
-				{
-					"name": "delimeter.optional.yerml",
-					"match": "(^[ \\t]*)"
-				}
-			] 
+		"import": {
+			"name": "keyword.other.import.yerml",
+			"match": "^import"
 		},
-		"idlm": {
+		"import-path": {
+			"name": "string.quoted.double.import.path.yerml",
+			"begin": "(?<=^import[ \\t]+)\"",
+			"end": "\"[ \\t]*$",
 			"patterns": [
 				{
-					"name": "delimeter.inline.yerml",
-					"match": "(^[ \\t]+)"
+					"include": "#import-path-windows"
+				},
+				{
+					"include": "#import-path-unix"
 				}
-			] 
+			]
+			
 		},
-		"entity_name": {
+		"import-path-windows": {
+			"match": "(([a-zA-Z]:)|(\\.{1-2}))\\(((?![<>:\"/\\|?*]).)+((?<![ .])\\)?)*"
+		},
+		"import-path-unix": {
+			"match": "\\/$|(^(?=\\/)|^\\.|^\\.\\.)(\\/(?=[^/\\0])[^/\\0]+)*\\/?"
+		},
+		"entity-name": {
+			"name": "entity.name.yerml",
+			"begin": "(?<=^[ \\t]*)",
+			"end": "(?=[ \\t]*:)",
 			"patterns": [
 				{
-					"match": "[a-z_]+[A-Za-z0-9_-]+"
+					"match": "[a-z_][A-Za-z0-9_\\-]*"
 				}
 			]
 		},
-		"entity_type_name": {
+		"entity-count": {
+			"name": "constant.numeric.entity.count.yerml",
+			"begin": "(?<=:[ \\t]+)",
+			"end": "(?=[ \\t]*$)",
 			"patterns": [
 				{
-					"match": "[A-Za-z_]+[A-Za-z0-9_-]+"
+					"match": "([0-9]+)|([+-*])|([0-9]+[+-*])"
 				}
 			]
 		},
-		"entity_count": {
+		"entity-type": {
+			"name": "entity.name.type.yerml",
 			"patterns": [
 				{
-					"begin": "(?:(^#odlm#entity_name#odlm:#idlm[ \\t\\S]*))",
-					"match": "([0-9]+)|([+-*])|([0-9]+[+-*])",
-					"end": ""
-				}
-			]			
-		},
-		"entity_type": {
-			"patterns": [
-				{
-					"begin": "(?:(^#odlm#entity_name#odlm:#idlm[ \\t\\S]*))",
-					"match": "#entity_type_name",
-					"end": ""
+					"begin": "(?<=(^[ \\t]*[a-z_][A-Za-z0-9_-]*[ \\t]*:[ \\t]+))",
+					"end": "(?=[ \\t]|$)",
+					"patterns": [
+						{
+							"match": "[A-Za-z_][A-Za-z0-9_-]*"
+						}
+					]
 				},
 				{
 					"begin": "(?:(^))",
-					"match": "#entity_type_name",
-					"end": "(?:(:))"
+					"end": "(?:(:))",
+					"patterns": [
+						{
+							"match": "[A-Za-z_][A-Za-z0-9_-]*"
+						}
+					]
 				}
 			]			
 		},
-		"entity_constraint": {
+		"entity-constraint": {
+			"name": "keyword.operator.entity.constraint.yerml",
+			"begin": "(?:(^[ \\t]*[a-z_][A-Za-z0-9_-]*[ \\t]*:[ \\t]+))",
+			"end": "(?:[ \\t]*|$)",
 			"patterns": [
 				{
-					"begin": "(?:(^#odlm#entity_name#odlm:#idlm[ \\t\\S]*))",
-					"match": "(\\<|\\>|\\<=|\\>=|\\!=|[Cc]=|_=|=)",
-					"end": ""
+					"match": "(\\<|\\>|\\<=|\\>=|\\!=|[Cc]=|_=|=)"
 				}
 			]
 		}
