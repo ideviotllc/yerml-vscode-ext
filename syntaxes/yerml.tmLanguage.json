@@ -46,6 +46,33 @@
 				}
 			]
 		},
+		"directive": {
+			"begin": "^%",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.directive.begin.yerml"
+				}
+			},
+			"end": "(?=$|[ \\t]+($|#))",
+			"name": "meta.directive.yerml",
+			"patterns": [
+				{
+					"captures": {
+						"1": {
+							"name": "keyword.other.directive.yerml.yerml"
+						},
+						"2": {
+							"name": "constant.numeric.yerml-version.yerml"
+						}
+					},
+					"match": "\\G(YERML)[ \\t]+(\\d+\\.\\d+)"
+				},
+				{
+					"match": "\\S+",
+					"name": "invalid.illegal.unrecognized.yerml"
+				}
+			]
+		},
 		"import": {
 			"name": "keyword.other.import.yerml",
 			"match": "^import"
@@ -69,6 +96,18 @@
 		},
 		"import-path-unix": {
 			"match": "\\/$|(^(?=\\/)|^\\.|^\\.\\.)(\\/(?=[^/\\0])[^/\\0]+)*\\/?"
+		},
+		"entity-def": {
+			"patterns":[
+				{
+					"captures": {
+						"1": {
+							"name": "entity.name.yerml"
+						},
+					},
+					"match": ""
+				}
+			]
 		},
 		"entity-name": {
 			"name": "entity.name.yerml",
