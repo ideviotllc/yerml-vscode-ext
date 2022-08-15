@@ -21,7 +21,13 @@
 			"include": "#import-path"
 		},
 		{
-			"include": "#entity-count"
+			"include": "#string-double-quoted"
+		},
+		{
+			"include": "#string-single-quoted"
+		},
+		{
+			"include": "#entity-definition"
 		}
 	],
 	"repository": {
@@ -97,68 +103,70 @@
 		"import-path-unix": {
 			"match": "\\/$|(^(?=\\/)|^\\.|^\\.\\.)(\\/(?=[^/\\0])[^/\\0]+)*\\/?"
 		},
-		"entity-def": {
+		"string-double-quoted": {
+			"begin": "\"",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.begin.yerml"
+				}
+			},
+			"end": "\"",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.end.yerml"
+				}
+			},
+			"name": "string.quoted.double.yerml",
+			"patterns": [
+				{
+					"match": "\\\\([0abtnvfre \"/\\\\N_Lp]|x\\d\\d|u\\d{4}|U\\d{8})",
+					"name": "constant.character.escape.yerml"
+				},
+				{
+					"match": "\\\\\\n",
+					"name": "constant.character.escape.double-quoted.newline.yerml"
+				}
+			]
+		},
+		"string-single-quoted": {
+			"begin": "'",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.begin.yerml"
+				}
+			},
+			"end": "'(?!')",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.end.yerml"
+				}
+			},
+			"name": "string.quoted.single.yerml",
+			"patterns": [
+				{
+					"match": "''",
+					"name": "constant.character.escape.single-quoted.yerml"
+				}
+			]
+		},
+		"entity-definition": {
 			"patterns":[
 				{
 					"captures": {
 						"1": {
-							"name": "entity.name.yerml"
+							"name": "variable.parameter.yerml"
 						},
+						"2": {
+							"name": "constant.numeric.entity.count.yerml"
+						},
+						"3": {
+							"name": "entity.name.type.yerml"
+						},
+						"4": {
+							"name": "keyword.operator.entity.constraint.yerml"
+						}
 					},
-					"match": ""
-				}
-			]
-		},
-		"entity-name": {
-			"name": "entity.name.yerml",
-			"begin": "(?<=^[ \\t]*)",
-			"end": "(?=[ \\t]*:)",
-			"patterns": [
-				{
-					"match": "[a-z_][A-Za-z0-9_\\-]*"
-				}
-			]
-		},
-		"entity-count": {
-			"name": "constant.numeric.entity.count.yerml",
-			"begin": "(?<=:[ \\t]+)",
-			"end": "(?=[ \\t]*$)",
-			"patterns": [
-				{
-					"match": "([0-9]+)|([+-*])|([0-9]+[+-*])"
-				}
-			]
-		},
-		"entity-type": {
-			"name": "entity.name.type.yerml",
-			"patterns": [
-				{
-					"begin": "(?<=(^[ \\t]*[a-z_][A-Za-z0-9_-]*[ \\t]*:[ \\t]+))",
-					"end": "(?=[ \\t]|$)",
-					"patterns": [
-						{
-							"match": "[A-Za-z_][A-Za-z0-9_-]*"
-						}
-					]
-				},
-				{
-					"begin": "(?:(^))",
-					"end": "(?:(:))",
-					"patterns": [
-						{
-							"match": "[A-Za-z_][A-Za-z0-9_-]*"
-						}
-					]
-				}
-			]			
-		},
-		"entity-constraint": {
-			"name": "keyword.operator.entity.constraint.yerml",
-			"begin": "(?:(^[ \\t]*[a-z_][A-Za-z0-9_-]*[ \\t]*:[ \\t]+))",
-			"end": "(?:[ \\t]*|$)",
-			"patterns": [
-				{
-					"match": "(\\<|\\>|\\<=|\\>=|\\!=|[Cc]=|_=|=)"
+					"match": "^[ \\t]*([a-z_][A-Za-z0-9_-]*)[ \\t]*:[ \\t]*([0-9]*[+*-]?)[ \\t]*([A-Z][A-Za-z0-9_-]*)?(([ \\t]*(<=|>=|!=|[Cc]=|_=|<|>|=)[ \\t]*(?:[^\"']\\S+[^\"']|r?\".*\"))*).*$"
 				}
 			]
 		}
