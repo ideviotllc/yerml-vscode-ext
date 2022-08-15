@@ -21,10 +21,7 @@
 			"include": "#import-path"
 		},
 		{
-			"include": "#string-double-quoted"
-		},
-		{
-			"include": "#string-single-quoted"
+			"include": "#string-quoted-double"
 		},
 		{
 			"include": "#entity-definition"
@@ -103,32 +100,16 @@
 		"import-path-unix": {
 			"match": "\\/$|(^(?=\\/)|^\\.|^\\.\\.)(\\/(?=[^/\\0])[^/\\0]+)*\\/?"
 		},
-		"string-double-quoted": {
-			"begin": "\"",
-			"beginCaptures": {
-				"0": {
-					"name": "punctuation.definition.string.begin.yerml"
+		"string-quoted-double": {
+
+			"match": "(?:(^[^\\n\"]*))(\"(?:(?=(\\\\?))\\3.)*?\")",
+			"captures": {
+				"2": {
+					"name": "string.quoted.double.yerml"
 				}
-			},
-			"end": "\"",
-			"endCaptures": {
-				"0": {
-					"name": "punctuation.definition.string.end.yerml"
-				}
-			},
-			"name": "string.quoted.double.yerml",
-			"patterns": [
-				{
-					"match": "\\\\([0abtnvfre \"/\\\\N_Lp]|x\\d\\d|u\\d{4}|U\\d{8})",
-					"name": "constant.character.escape.yerml"
-				},
-				{
-					"match": "\\\\\\n",
-					"name": "constant.character.escape.double-quoted.newline.yerml"
-				}
-			]
+			}
 		},
-		"string-single-quoted": {
+		"string-quoted-single": {
 			"begin": "'",
 			"beginCaptures": {
 				"0": {
@@ -152,6 +133,7 @@
 		"entity-definition": {
 			"patterns":[
 				{
+					"comment" : "Named entities",
 					"captures": {
 						"1": {
 							"name": "variable.parameter.yerml"
@@ -166,7 +148,25 @@
 							"name": "keyword.operator.entity.constraint.yerml"
 						}
 					},
-					"match": "^[ \\t]*([a-z_][A-Za-z0-9_-]*)[ \\t]*:[ \\t]*([0-9]*[+*-]?)[ \\t]*([A-Z][A-Za-z0-9_-]*)?(([ \\t]*(<=|>=|!=|[Cc]=|_=|<|>|=)[ \\t]*(?:[^\"']\\S+[^\"']|r?\".*\"))*).*$"
+					"match": "^[ \\t]*([a-z_][A-Za-z0-9_-]*)[ \\t]*:[ \\t]*([0-9]*[+*-]?)[ \\t]*([A-Z][A-Za-z0-9_-]*)?(([ \\t]*(<=|>=|!=|:=|_=|<|>|=)[ \\t]*(?=[^\"']\\S+[^\"']|r?\".*\"))*).*$"
+				},
+				{
+					"comment" : "Anonymous entities",
+					"captures": {
+						"1": {
+							"name": "entity.name.type.yerml"
+						},
+						"2": {
+							"name": "constant.numeric.entity.count.yerml"
+						},
+						"3": {
+							"name": "entity.name.type.yerml"
+						},
+						"4": {
+							"name": "keyword.operator.entity.constraint.yerml"
+						}
+					},
+					"match": "^[ \\t]*([A-Z][A-Za-z0-9_-]*)[ \\t]*:[ \\t]*([0-9]*[+*-]?)[ \\t]*([A-Z][A-Za-z0-9_-]*)?(([ \\t]*(<=|>=|!=|:=|_=|<|>|=)[ \\t]*(?=[^\"']\\S+[^\"']|r?\".*\"))*).*$"
 				}
 			]
 		}
