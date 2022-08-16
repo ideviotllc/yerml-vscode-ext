@@ -100,6 +100,16 @@
 		"import-path-unix": {
 			"match": "\\/$|(^(?=\\/)|^\\.|^\\.\\.)(\\/(?=[^/\\0])[^/\\0]+)*\\/?"
 		},
+		"string": {
+			"patterns": [
+				{
+					"include": "#string-quoted-double"
+				},
+				{
+					"include": "#string-quoted-single"
+				}
+			]
+		},
 		"string-quoted-double": {
 
 			"match": "(?:(^[^\\n\"]*))(\"(?:(?=(\\\\?))\\3.)*?\")",
@@ -110,25 +120,12 @@
 			}
 		},
 		"string-quoted-single": {
-			"begin": "'",
-			"beginCaptures": {
-				"0": {
-					"name": "punctuation.definition.string.begin.yerml"
+			"match": "(?:(^[^\\n']*))('?:(?=(\\\\?))\\3.)*?\")",
+			"captures": {
+				"2": {
+					"name": "string.quoted.single.yerml"
 				}
-			},
-			"end": "'(?!')",
-			"endCaptures": {
-				"0": {
-					"name": "punctuation.definition.string.end.yerml"
-				}
-			},
-			"name": "string.quoted.single.yerml",
-			"patterns": [
-				{
-					"match": "''",
-					"name": "constant.character.escape.single-quoted.yerml"
-				}
-			]
+			}
 		},
 		"entity-definition": {
 			"patterns":[
@@ -148,7 +145,7 @@
 							"name": "keyword.operator.entity.constraint.yerml"
 						}
 					},
-					"match": "^[ \\t]*([a-z_][A-Za-z0-9_-]*)[ \\t]*:[ \\t]*([0-9]*[+*-]?)[ \\t]*([A-Z][A-Za-z0-9_-]*)?(([ \\t]*(<=|>=|!=|:=|_=|<|>|=)[ \\t]*(?=[^\"']\\S+[^\"']|r?\".*\"))*).*$"
+					"match": "^[ \\t]*([a-z_][A-Za-z0-9_-]*)[ \\t]*:[ \\t]*([0-9]*[+*-]?)[ \\t]*([A-Z][A-Za-z0-9_-]*)?(([ \\t]*(<=|>=|!=|:=|_=|<|>|=)[ \\t]*(?=[^\"']\\S+[^\"']|r?(\"(?:(?=(\\\\?))\\2.)*?\")))*)"
 				},
 				{
 					"comment" : "Anonymous entities",
@@ -166,7 +163,7 @@
 							"name": "keyword.operator.entity.constraint.yerml"
 						}
 					},
-					"match": "^[ \\t]*([A-Z][A-Za-z0-9_-]*)[ \\t]*:[ \\t]*([0-9]*[+*-]?)[ \\t]*([A-Z][A-Za-z0-9_-]*)?(([ \\t]*(<=|>=|!=|:=|_=|<|>|=)[ \\t]*(?=[^\"']\\S+[^\"']|r?\".*\"))*).*$"
+					"match": "^[ \\t]*([A-Z][A-Za-z0-9_-]*)[ \\t]*:[ \\t]*([0-9]*[+*-]?)[ \\t]*([A-Z][A-Za-z0-9_-]*)?(([ \\t]*(<=|>=|!=|:=|_=|<|>|=)[ \\t]*(?=[^\"']\\S+[^\"']|r?(\"(?:(?=(\\\\?))\\3.)*?\")))*)"
 				}
 			]
 		}
