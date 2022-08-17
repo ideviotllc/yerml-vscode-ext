@@ -1,0 +1,14 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Deploy Grammar",
+            "command": "cp",
+            "args": [
+                "${workspaceFolder}\\syntaxes\\yerml.tmLanguage.json",
+                "${userHome}\\.vscode\\extensions\\yerml-vscode-ext\\syntaxes"
+            ],
+            "problemMatcher": []
+        }
+    ]
+}

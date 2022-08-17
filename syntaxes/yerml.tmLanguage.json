@@ -4,6 +4,9 @@
 	"scopeName": "source.yerml", 
 	"patterns": [
 		{
+			"include": "#directive"
+		},
+		{
 			"include": "#comment"
 		},
 		{
@@ -19,9 +22,6 @@
 		},
 		{
 			"include": "#import-path"
-		},
-		{
-			"include": "#string-quoted-double"
 		},
 		{
 			"include": "#entity-definition"
@@ -78,12 +78,12 @@
 		},
 		"import": {
 			"name": "keyword.other.import.yerml",
-			"match": "^import"
+			"match": "^import(?!:)"
 		},
 		"import-path": {
 			"name": "string.quoted.double.import.path.yerml",
 			"begin": "(?<=^import[ \\t]+)\"",
-			"end": "\"[ \\t]*$",
+			"end": "\"",
 			"patterns": [
 				{
 					"include": "#import-path-windows"
@@ -100,70 +100,36 @@
 		"import-path-unix": {
 			"match": "\\/$|(^(?=\\/)|^\\.|^\\.\\.)(\\/(?=[^/\\0])[^/\\0]+)*\\/?"
 		},
-		"string": {
-			"patterns": [
-				{
-					"include": "#string-quoted-double"
-				},
-				{
-					"include": "#string-quoted-single"
-				}
-			]
-		},
-		"string-quoted-double": {
-
-			"match": "(?:(^[^\\n\"]*))(\"(?:(?=(\\\\?))\\3.)*?\")",
-			"captures": {
-				"2": {
-					"name": "string.quoted.double.yerml"
-				}
-			}
-		},
-		"string-quoted-single": {
-			"match": "(?:(^[^\\n']*))('?:(?=(\\\\?))\\3.)*?\")",
-			"captures": {
-				"2": {
-					"name": "string.quoted.single.yerml"
-				}
-			}
-		},
 		"entity-definition": {
 			"patterns":[
 				{
-					"comment" : "Named entities",
 					"captures": {
-						"1": {
+						"2": {
 							"name": "variable.parameter.yerml"
 						},
-						"2": {
-							"name": "constant.numeric.entity.count.yerml"
-						},
 						"3": {
 							"name": "entity.name.type.yerml"
 						},
 						"4": {
-							"name": "keyword.operator.entity.constraint.yerml"
-						}
-					},
-					"match": "^[ \\t]*([a-z_][A-Za-z0-9_-]*)[ \\t]*:[ \\t]*([0-9]*[+*-]?)[ \\t]*([A-Z][A-Za-z0-9_-]*)?(([ \\t]*(<=|>=|!=|:=|_=|<|>|=)[ \\t]*(?=[^\"']\\S+[^\"']|r?(\"(?:(?=(\\\\?))\\2.)*?\")))*)"
-				},
-				{
-					"comment" : "Anonymous entities",
-					"captures": {
-						"1": {
-							"name": "entity.name.type.yerml"
-						},
-						"2": {
 							"name": "constant.numeric.entity.count.yerml"
 						},
-						"3": {
-							"name": "entity.name.type.yerml"
+						"5": {
+							"name": "entity.other.inherited-class.yerml"
 						},
-						"4": {
+						"6": {
 							"name": "keyword.operator.entity.constraint.yerml"
+						},
+						"10": {
+							"name": "string.quoted.double.entity.constraint.string.yerml"
+						},
+						"12": {
+							"name": "constant.numeric.entity.constraint.number.yerml"
+						},
+						"14": {
+							"name": "variable.parameter.yerml"
 						}
 					},
-					"match": "^[ \\t]*([A-Z][A-Za-z0-9_-]*)[ \\t]*:[ \\t]*([0-9]*[+*-]?)[ \\t]*([A-Z][A-Za-z0-9_-]*)?(([ \\t]*(<=|>=|!=|:=|_=|<|>|=)[ \\t]*(?=[^\"']\\S+[^\"']|r?(\"(?:(?=(\\\\?))\\3.)*?\")))*)"
+					"match": "^[ \\t]*(([a-z_][A-Za-z0-9_-]*)|([A-Z][A-Za-z0-9_-]*))[ \\t]*:[ \\t]*([0-9]*[+*-]?)?[ \\t]*([A-Z][A-Za-z0-9_-]*)?(([ \\t]*(<=|>=|!=|:=|_=|<|>|=)[ \\t]*((r?\"(?:(?=(\\\\?))\\11.)*?\")|(-?[0-9]+(\\.[0-9]*)?)|([a-z_][A-Za-z0-9_-]*)))*)"
 				}
 			]
 		}
