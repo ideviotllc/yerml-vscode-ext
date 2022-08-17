@@ -81,24 +81,29 @@
 			"match": "^import(?!:)"
 		},
 		"import-path": {
-			"name": "string.quoted.double.import.path.yerml",
 			"begin": "(?<=^import[ \\t]+)\"",
+			"beginCaptures": {
+				"0": {
+					"name": "string.quoted.double.import.path.yerml"
+				}
+			},
 			"end": "\"",
+			"endCaptures": {
+				"0": {
+					"name": "string.quoted.double.import.path.yerml"
+				}
+			},
 			"patterns": [
 				{
-					"include": "#import-path-windows"
+					"name": "string.quoted.double.import.path.yerml",
+					"match": "\\/?((?=[^\\/\\\\\\0])[^\\/\\\\\\0]+[\\/\\\\])*(?=[^\"\\0])[^\"\\0]+"
 				},
 				{
-					"include": "#import-path-unix"
+					"match": "\\S+",
+					"name": "invalid.illegal.unrecognized.yerml"
 				}
 			]
 			
-		},
-		"import-path-windows": {
-			"match": "(([a-zA-Z]:)|(\\.{1-2}))\\(((?![<>:\"/\\|?*]).)+((?<![ .])\\)?)*"
-		},
-		"import-path-unix": {
-			"match": "\\/$|(^(?=\\/)|^\\.|^\\.\\.)(\\/(?=[^/\\0])[^/\\0]+)*\\/?"
 		},
 		"entity-definition": {
 			"patterns":[
