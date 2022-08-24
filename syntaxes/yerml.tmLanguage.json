@@ -24,10 +24,7 @@
 			"include": "#import-path"
 		},
 		{
-			"include": "#entity-def-subject"
-		},
-		{
-			"include": "#entity-def-descriptors"
+			"include": "#entity-definition"
 		}
 	],
 	"repository": {
@@ -108,9 +105,10 @@
 			]
 			
 		},
-		"entity-def-subject": {
-			"match": "^[ \\t]*([^:]+)[ \\t]*(?=:)",
-			"captures": {
+		"entity-definition": {
+			"begin": "^[ \\t]*([^:]+)[ \\t]*:",
+			"end": "(?=[ \\t]*(#|\\n))",
+			"beginCaptures": {
 				"1": {
 					"patterns": [
 						{
@@ -125,37 +123,46 @@
 						}
 					]
 				}
-			}
-		},
-		"entity-def-descriptors": {
-			"begin": ":",
-			"end": "(?=#|\\n)",
+			},
 			"patterns": [
 				{
-					"include": "#entity-quantifier"
+					"include": "#entity-desc-quantifier"
+				},
+				{
+					"include": "#entity-desc-type"
+				},
+				{
+					"include": "#entity-desc-constraint"
+				},
+				{
+					"match": ".+?",
+					"name": "invalid.illegal.expected-inst-or-type-name.yerml"
 				}
 			]
 		},
-		"entity-inst-name": {
-			"name": "variable.parameter.yerml",
-			"match": "_*[a-z]\\w*"
-		},
-		"entity-type-name": {
-			"name": "entity.name.type.yerml",
-			"match": "[A-Z]\\w*"
-		},
-		"entity-quantifier": {
+		"entity-desc-quantifier": {
 			"name": "constant.numeric.entity.count.yerml",
 			"match": "([*+-]|\\d+[+-])(?!.*?\\g<1>)"
 		},
-		"entity-constraints": {
+		"entity-desc-type": {
+			"match": "(([A-Z]\\w*)([ \\t]*\\([ \\t]*(\\g<2>)[ \\t]*\\))?)(?!.*?\\g<1>)",
+			"captures": {
+				"2": {
+					"name": "entity.name.type.yerml"
+				},
+				"4": {
+					"name": "entity.name.type.yerml"
+				}				
+			}
+		},		
+		"entity-desc-constraint": {
 			"begin": "(<=|>=|!=|:=|_=|<|>|=)[ \\t]*",
 			"beginCaptures": {
 				"1": {
 					"name": "keyword.operator.entity.constraint.yerml"
 				}
 			},
-			"end": "(?=[ \\t<>:!_=]|$",
+			"end": "(?=[ \\t<>:!_=]|$)",
 			"patterns": [
 				{
 					"include": "#entity-inst-name"
@@ -171,6 +178,14 @@
 				}
 			]
 		},
+		"entity-inst-name": {
+			"name": "variable.parameter.yerml",
+			"match": "_*[a-z]\\w*"
+		},
+		"entity-type-name": {
+			"name": "entity.name.type.yerml",
+			"match": "[A-Z]\\w*"
+		},		
 		"string-quoted-double": {
 			"name": "string.quoted.double.entity.constraint.string.yerml",
 			"match": "r?\"(?:(?=(\\\\?))\\1.)*?\""
@@ -186,9 +201,6 @@
 				},
 				{
 					"include": "#real-number"
-				},
-				{
-					"include": "#currency"
 				}
 			]
 		},
@@ -203,16 +215,6 @@
 		"real-number": {
 			"name": "constant.numeric.real.signed.yerml",
 			"match": "-?\\d+\\.\\d*"
-		},
-		"currency": {
-			"name": "constant.numeric.currency.yerml",
-			"begin": "-?\\$",
-			"end": "[ ]?[A-Z]{3}",
-			"patterns": [
-				{
-					"include": "#unsigned-real-number"
-				}
-			]
 		}
 	}
 }
