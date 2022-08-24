@@ -118,7 +118,7 @@
 							"include": "#entity-type-name"
 						},
 						{
-							"match": ".+",
+							"match": ".+?",
 							"name": "invalid.illegal.expected-inst-or-type-name.yerml"
 						}
 					]
@@ -142,15 +142,15 @@
 		},
 		"entity-desc-quantifier": {
 			"name": "constant.numeric.entity.count.yerml",
-			"match": "([*+-]|\\d+[+-])(?!.*?\\g<1>)"
+			"match": "(([*+-]|\\d+[+-]?)(?=([^\"\\\\]*(\\\\.|\"([^\"\\\\]*\\\\.)*[^\"\\\\]*\"))*[^\"]*$))(?!.*?\\g<1>)"
 		},
 		"entity-desc-type": {
-			"match": "(([A-Z]\\w*)([ \\t]*\\([ \\t]*(\\g<2>)[ \\t]*\\))?)(?!.*?\\g<1>)",
+			"match": "((([A-Z]\\w*)([ \\t]*\\([ \\t]*(\\g<3>)[ \\t]*\\))?)(?=([^\"\\\\]*(\\\\.|\"([^\"\\\\]*\\\\.)*[^\"\\\\]*\"))*[^\"]*$))(?![^#]*?\\g<1>)",
 			"captures": {
-				"2": {
+				"3": {
 					"name": "entity.name.type.yerml"
 				},
-				"4": {
+				"5": {
 					"name": "entity.name.type.yerml"
 				}				
 			}
