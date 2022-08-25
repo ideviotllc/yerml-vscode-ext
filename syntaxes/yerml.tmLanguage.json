@@ -126,7 +126,7 @@
 			},
 			"patterns": [
 				{
-					"include": "#entity-desc-quantifier"
+					"include": "#entity-desc-count"
 				},
 				{
 					"include": "#entity-desc-type"
@@ -140,18 +140,18 @@
 				}
 			]
 		},
-		"entity-desc-quantifier": {
+		"entity-desc-count": {
 			"name": "constant.numeric.entity.count.yerml",
-			"match": "(([*+-]|\\d+[+-]?)(?=([^\"\\\\]*(\\\\.|\"([^\"\\\\]*\\\\.)*[^\"\\\\]*\"))*[^\"]*$))(?!.*?\\g<1>)"
+			"match": "((?<!=[ \\t]*)([*+-]|\\d+[+-]?)(?=([^\"\\\\]*(\\\\.|\"([^\"\\\\]*\\\\.)*[^\"\\\\]*\"))*[^\"]*$))(?!.*?\\g<1>)"
 		},
 		"entity-desc-type": {
-			"match": "((([A-Z]\\w*)([ \\t]*\\([ \\t]*(\\g<3>)[ \\t]*\\))?)(?=([^\"\\\\]*(\\\\.|\"([^\"\\\\]*\\\\.)*[^\"\\\\]*\"))*[^\"]*$))(?![^#]*?\\g<1>)",
+			"match": "(((?<!\\([ \\t])([A-Z]\\w*)(?![ \\t]*\\))[ \\t]*(\\([ \\t]*(\\g<3>)[ \\t]*\\))?)(?=([^\"\\\\]*(\\\\.|\"([^\"\\\\]*\\\\.)*[^\"\\\\]*\"))*[^\"]*$))(?![^#]*?\\g<1>)",
 			"captures": {
 				"3": {
-					"name": "entity.name.type.yerml"
+					"name": "entity.name.type.3.yerml"
 				},
 				"5": {
-					"name": "entity.name.type.yerml"
+					"name": "entity.name.type.5.yerml"
 				}				
 			}
 		},		
