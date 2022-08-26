@@ -1,8 +1,8 @@
 {
     "name": "yerml",
     "displayName": "YERML",
-    "description": "YAML-esque Entity Relationship Modeling Language",
-    "version": "0.0.1",
+    "description": "YAML-like Entity Relationship Modeling Language",
+    "version": "0.1",
     "engines": {
         "vscode": "^1.68.0"
     },
