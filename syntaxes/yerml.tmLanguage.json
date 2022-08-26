@@ -142,17 +142,21 @@
 		},
 		"entity-desc-count": {
 			"name": "constant.numeric.entity.count.yerml",
-			"match": "((?<!=[ \\t]*)([*+-]|\\d+[+-]?)(?=([^\"\\\\]*(\\\\.|\"([^\"\\\\]*\\\\.)*[^\"\\\\]*\"))*[^\"]*$))(?!.*?\\g<1>)"
+			"match": "((?<![=<>][ \\t]*|\\w)([*+-]|\\d+[+-]?)(?=([^\"\\\\]*(\\\\.|\"([^\"\\\\]*\\\\.)*[^\"\\\\]*\"))*[^\"]*$))(?!.*?\\g<1>)"
 		},
 		"entity-desc-type": {
-			"match": "(((?<!\\([ \\t])([A-Z]\\w*)(?![ \\t]*\\))[ \\t]*(\\([ \\t]*(\\g<3>)[ \\t]*\\))?)(?=([^\"\\\\]*(\\\\.|\"([^\"\\\\]*\\\\.)*[^\"\\\\]*\"))*[^\"]*$))(?![^#]*?\\g<1>)",
+			"match": "((([A-Z]\\w*)(?![ \\t]*\\))([ \\t]*(\\()[ \\t]*(\\g<3>)[ \\t]*(\\)))?)(?=([^\"\\\\]*(\\\\.|\"([^\"\\\\]*\\\\.)*[^\"\\\\]*\"))*[^\"]*$))(?![^#]*?\\g<1>)",
 			"captures": {
-				"3": {
-					"name": "entity.name.type.3.yerml"
+				"1": {
+					"name": "entity.name.type.1.yerml"
 				},
 				"5": {
-					"name": "entity.name.type.5.yerml"
-				}				
+					"name": "keyword.operator.entity.desc.type.inherit.open.yerml"
+				},
+				"7": {
+					"name": "keyword.operator.entity.desc.type.inherit.close.yerml"
+				}
+
 			}
 		},		
 		"entity-desc-constraint": {
@@ -165,16 +169,16 @@
 			"end": "(?=[ \\t<>:!_=]|$)",
 			"patterns": [
 				{
-					"include": "#entity-inst-name"
-				},
-				{
-					"include": "#scalar"
-				},
-				{
 					"include": "#string-quoted-double"
 				},
 				{
 					"include": "#string-quoted-single"
+				},
+				{
+					"include": "#entity-inst-name"
+				},
+				{
+					"include": "#scalar"
 				}
 			]
 		},
