@@ -106,40 +106,119 @@
 			
 		},
 		"entity-definition": {
-			"patterns":[
-				{
-					"captures": {
-						"2": {
-							"name": "variable.parameter.yerml"
+			"begin": "^[ \\t]*([^:]+)[ \\t]*:",
+			"end": "(?=[ \\t]*(#|\\n))",
+			"beginCaptures": {
+				"1": {
+					"patterns": [
+						{
+							"include": "#entity-inst-name"
 						},
-						"3": {
-							"name": "entity.name.type.yerml"
+						{
+							"include": "#entity-type-name"
 						},
-						"4": {
-							"name": "constant.numeric.entity.count.yerml"
-						},
-						"6": {
-							"name": "entity.name.type.yerml"
-						},
-						"8": {
-							"name": "entity.other.inherited-class.yerml"
-						},
-						"9": {
-							"name": "keyword.operator.entity.constraint.yerml"
-						},
-						"13": {
-							"name": "string.quoted.double.entity.constraint.string.yerml"
-						},
-						"15": {
-							"name": "constant.numeric.entity.constraint.number.yerml"
-						},
-						"18": {
-							"name": "variable.parameter.yerml"
+						{
+							"match": ".+?",
+							"name": "invalid.illegal.expected-inst-or-type-name.yerml"
 						}
-					},
-					"match": "^[ \\t]*(([a-z_][\\w-]*)|([A-Z][\\w-]*))[ \\t]*:[ \\t]*(\\d*[+*-]?)?[ \\t]*(([A-Z][\\w-]*)[ ]?([(]([A-Z][\\w-]*)[)])?)?(([ \\t]*(<=|>=|!=|:=|_=|<|>|=)[ \\t]*((r?\"(?:(?=(\\\\?))\\14.)*?\")|(-?\\$?\\d+(\\.\\d*)?%?([ ]?[A-Z]{3})?)|([a-z_][\\w-]*)))*)"
+					]
+				}
+			},
+			"patterns": [
+				{
+					"include": "#entity-desc-count"
+				},
+				{
+					"include": "#entity-desc-type"
+				},
+				{
+					"include": "#entity-desc-constraint"
+				},
+				{
+					"match": ".+?",
+					"name": "invalid.illegal.expected-inst-or-type-name.yerml"
 				}
 			]
+		},
+		"entity-desc-count": {
+			"name": "constant.numeric.entity.count.yerml",
+			"match": "((?<![=<>][ \\t]*|\\w)([*+-]|\\d+[+-]?)(?=([^\"\\\\]*(\\\\.|\"([^\"\\\\]*\\\\.)*[^\"\\\\]*\"))*[^\"]*$))(?!.*?\\g<1>)"
+		},
+		"entity-desc-type": {
+			"match": "((([A-Z]\\w*)(?![ \\t]*\\))([ \\t]*(\\()[ \\t]*(\\g<3>)[ \\t]*(\\)))?)(?=([^\"\\\\]*(\\\\.|\"([^\"\\\\]*\\\\.)*[^\"\\\\]*\"))*[^\"]*$))(?![^#]*?\\g<1>)",
+			"captures": {
+				"1": {
+					"name": "entity.name.type.1.yerml"
+				},
+				"5": {
+					"name": "keyword.operator.entity.desc.type.inherit.open.yerml"
+				},
+				"7": {
+					"name": "keyword.operator.entity.desc.type.inherit.close.yerml"
+				}
+
+			}
+		},		
+		"entity-desc-constraint": {
+			"begin": "(<=|>=|!=|:=|_=|<|>|=)[ \\t]*",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.operator.entity.constraint.yerml"
+				}
+			},
+			"end": "(?=[ \\t<>:!_=]|$)",
+			"patterns": [
+				{
+					"include": "#string-quoted-double"
+				},
+				{
+					"include": "#string-quoted-single"
+				},
+				{
+					"include": "#entity-inst-name"
+				},
+				{
+					"include": "#scalar"
+				}
+			]
+		},
+		"entity-inst-name": {
+			"name": "variable.parameter.yerml",
+			"match": "_*[a-z]\\w*"
+		},
+		"entity-type-name": {
+			"name": "entity.name.type.yerml",
+			"match": "[A-Z]\\w*"
+		},		
+		"string-quoted-double": {
+			"name": "string.quoted.double.entity.constraint.string.yerml",
+			"match": "r?\"(?:(?=(\\\\?))\\1.)*?\""
+		},
+		"string-quoted-single": {
+			"name": "string.quoted.single.entity.constraint.string.yerml",
+			"match": "r?'(?:(?=(\\\\?))\\1.)*?'"
+		},
+		"scalar": {
+			"patterns": [
+				{
+					"include": "#integer"
+				},
+				{
+					"include": "#real-number"
+				}
+			]
+		},
+		"integer": {
+			"name": "constant.numeric.integer.yerml",
+			"match": "-?\\d+"
+		},
+		"unsigned-real-number": {
+			"name": "constant.numeric.real.unsigned.yerml",
+			"match": "\\d+\\.\\d*"
+		},
+		"real-number": {
+			"name": "constant.numeric.real.signed.yerml",
+			"match": "-?\\d+\\.\\d*"
 		}
 	}
 }
