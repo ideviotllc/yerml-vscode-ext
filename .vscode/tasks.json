@@ -5,7 +5,6 @@
             "label": "Deploy Grammar",
             "command": "cp",
             "args": [
-                "-R",
                 "${workspaceFolder}",
                 "${userHome}\\.vscode\\extensions"
             ],
