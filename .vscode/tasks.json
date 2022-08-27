@@ -5,10 +5,20 @@
             "label": "Deploy Grammar",
             "command": "cp",
             "args": [
-                "${workspaceFolder}\\syntaxes\\yerml.tmLanguage.json",
-                "${userHome}\\.vscode\\extensions\\yerml-vscode-ext\\syntaxes"
+                "-R",
+                "${workspaceFolder}",
+                "${userHome}\\.vscode\\extensions"
             ],
+            "dependsOn": ["Make Deploy Directory"],
             "problemMatcher": []
+        },
+        {
+            "label": "Make Deploy Directory",
+            "command": "mkdir",
+            "args": [
+                "-p",
+                "${userHome}\\.vscode\\extensions\\yerml-vscode-ext\\syntaxes"
+            ]
         }
     ]
 }
