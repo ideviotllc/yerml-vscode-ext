@@ -21,6 +21,7 @@ This extension adds syntax highlighting to VS Code so you can more easily write 
 ## Extension Settings
 
 None.
+
 ## Known Issues
 
 None.
