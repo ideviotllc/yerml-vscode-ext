@@ -106,39 +106,48 @@
 			
 		},
 		"entity-definition": {
-			"begin": "^[ \\t]*([^:]+)[ \\t]*:",
-			"end": "(?=[ \\t]*(#|\\n))",
-			"beginCaptures": {
-				"1": {
+			"patterns": [
+				{
+					"begin": "^[ \\t]*(\\w+\\??)[ \\t]*(:|(?=#|\\n))",
+					"end": "(?=[ \\t]*(#|\\n))",
+					"beginCaptures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#entity-inst-name"
+								},
+								{
+									"include": "#entity-type-name"
+								},
+								{
+									"match": ".+?",
+									"name": "invalid.illegal.expected-inst-or-type-name.yerml"
+								}
+							]
+						}
+					},
 					"patterns": [
 						{
-							"include": "#entity-inst-name"
+							"include": "#entity-desc-count"
 						},
 						{
-							"include": "#entity-type-name"
+							"include": "#entity-desc-type"
+						},
+						{
+							"include": "#entity-desc-constraint"
 						},
 						{
 							"match": ".+?",
 							"name": "invalid.illegal.expected-inst-or-type-name.yerml"
 						}
 					]
-				}
-			},
-			"patterns": [
-				{
-					"include": "#entity-desc-count"
-				},
-				{
-					"include": "#entity-desc-type"
-				},
-				{
-					"include": "#entity-desc-constraint"
 				},
 				{
 					"match": ".+?",
 					"name": "invalid.illegal.expected-inst-or-type-name.yerml"
 				}
 			]
+			
 		},
 		"entity-desc-count": {
 			"name": "constant.numeric.entity.count.yerml",
