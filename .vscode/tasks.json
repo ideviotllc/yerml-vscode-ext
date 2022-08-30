@@ -5,8 +5,12 @@
             "label": "Deploy Grammar",
             "command": "cp",
             "args": [
-                "${workspaceFolder}",
-                "${userHome}\\.vscode\\extensions"
+                "-r",
+                "${workspaceFolder}\\syntaxes",
+                "${workspaceFolder}\\language-configuration.json",
+                "${workspaceFolder}\\package.json",
+                "${workspaceFolder}\\README.md",
+                "${userHome}\\.vscode\\extensions\\yerml-vscode-ext"
             ],
             "dependsOn": ["Make Deploy Directory"],
             "problemMatcher": []
