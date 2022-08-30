@@ -108,7 +108,7 @@
 		"entity-definition": {
 			"patterns": [
 				{
-					"begin": "^[ \\t]*(\\w+\\??)[ \\t]*(:|(?=#|\\n))",
+					"begin": "^[ \\t]*(\\w+\\??)[ \\t]*?(:|(?=( #)|\\n))",
 					"end": "(?=[ \\t]*(#|\\n))",
 					"beginCaptures": {
 						"1": {
@@ -143,7 +143,7 @@
 					]
 				},
 				{
-					"match": ".+?",
+					"match": "^.+?(?=( #)|\\n)",
 					"name": "invalid.illegal.expected-inst-or-type-name.yerml"
 				}
 			]
