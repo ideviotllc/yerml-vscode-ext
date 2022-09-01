@@ -108,24 +108,28 @@
 		"entity-definition": {
 			"patterns": [
 				{
-					"begin": "^[ \\t]*(\\w+\\??)[ \\t]*?(:|(?=( #)|\\n))",
-					"end": "(?=[ \\t]*(#|\\n))",
-					"beginCaptures": {
-						"1": {
-							"patterns": [
-								{
-									"include": "#entity-inst-name"
-								},
-								{
-									"include": "#entity-type-name"
-								},
-								{
-									"match": ".+?",
-									"name": "invalid.illegal.expected-inst-or-type-name.yerml"
-								}
-							]
+					"begin": "^[ \\t]*(?=\\w+)",
+					"end": "(?=[ \\t]*((:(?!=))|#|\\n))",
+					"patterns": [
+						{
+							"include": "#entity-inst-name"
+						},
+						{
+							"include": "#entity-type-name"
+						},
+						{
+							"name":"keyword.operator.ed.entity.compound.separator.yerml",
+							"match": "(?<=\\w)\\.(?=\\w)"
+						},
+						{
+							"match": ".+?",
+							"name": "invalid.illegal.expected-inst-or-type-name.yerml"
 						}
-					},
+					]
+				},
+				{
+					"begin": ":(?!=)",
+					"end": "(?=[ \\t]*(#|\\n))",
 					"patterns": [
 						{
 							"include": "#entity-desc-count"
