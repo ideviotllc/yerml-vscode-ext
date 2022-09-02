@@ -112,6 +112,9 @@
 					"end": "(?=[ \\t]*((:(?!=))|#|\\n))",
 					"patterns": [
 						{
+							"include": "#boolean"
+						},
+						{
 							"include": "#entity-inst-name"
 						},
 						{
@@ -188,6 +191,9 @@
 					"include": "#string-quoted-single"
 				},
 				{
+					"include": "#boolean"
+				},
+				{
 					"include": "#entity-inst-name"
 				},
 				{
@@ -232,6 +238,10 @@
 		"real-number": {
 			"name": "constant.numeric.real.signed.yerml",
 			"match": "-?\\d+\\.\\d*"
+		},
+		"boolean": {
+			"name": "constant.language.boolean.yerml",
+			"match": "\\b(true|false)\\b"
 		}
 	}
 }
