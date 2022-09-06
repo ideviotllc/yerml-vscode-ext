@@ -185,6 +185,68 @@
 			"end": "(?=[ \\t<>:!_=]|$)",
 			"patterns": [
 				{
+					"include": "#collection"
+				},
+				{
+					"include": "#singular"
+				}
+			]
+		},
+		"collection": {
+			"patterns": [
+				{
+					"include": "#array"
+				},
+				{
+					"include": "#tuple"
+				},
+				{
+					"include": "#set"
+				}
+			]
+		},
+		"array": {
+			"begin": "(?<!\\\\)\\(",
+			"end": "(?<!\\\\)\\)",
+			"patterns": [
+				{
+					"match": ",",
+					"name": "punctuation.separator.array.yerml"
+				},
+				{
+					"include": "#singular"
+				}
+			]
+		},
+		"tuple": {
+			"begin": "(?<!\\\\)\\[",
+			"end": "(?<!\\\\)\\]",
+			"patterns": [
+				{
+					"match": ",",
+					"name": "punctuation.separator.array.yerml"
+				},
+				{
+					"include": "#singular"
+				}
+			]
+		},
+		"set": {
+			"begin": "(?<!\\\\)\\{",
+			"end": "(?<!\\\\)\\}",
+			"patterns": [
+				{
+					"match": ",",
+					"name": "punctuation.separator.array.yerml"
+				},
+				{
+					"include": "#singular"
+				}
+			]
+		},
+		"singular": {
+			"patterns": [
+				{
 					"include": "#string-quoted-double"
 				},
 				{
@@ -242,6 +304,10 @@
 		"boolean": {
 			"name": "constant.language.boolean.yerml",
 			"match": "\\b(true|false)\\b"
+		},
+		"ellipsis": {
+			"name": "constant.language.ellipsis.yerml",
+			"match": "\\.{3}"
 		}
 	}
 }
