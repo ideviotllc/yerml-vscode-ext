@@ -158,7 +158,7 @@
 		},
 		"entity-desc-count": {
 			"name": "constant.numeric.entity.count.yerml",
-			"match": "((?<![=<>][ \\t]*|\\w)([*+-]|\\d+[+-]?|\\d+-\\d+)(?=([^\"\\\\]*(\\\\.|\"([^\"\\\\]*\\\\.)*[^\"\\\\]*\"))*[^\"]*$))(?!.*?\\g<1>)"
+			"match": "((?<![\\[({,=<>])((?<![=<>][ \t]*)([*+-]|\\d+[+-]?|\\d+-\\d+))(?![\\w\\s]*[,})\\]])(?=([^\"\\\\]*(\\\\.|\"([^\"\\\\]*\\\\.)*[^\"\\\\]*\"))*[^\"]*$))(?![^#]*?\\g<1>)"
 		},
 		"entity-desc-type": {
 			"match": "((([A-Z]\\w*)(?![ \\t]*\\))([ \\t]*(\\()[ \\t]*(\\g<3>)[ \\t]*(\\)))?)(?=([^\"\\\\]*(\\\\.|\"([^\"\\\\]*\\\\.)*[^\"\\\\]*\"))*[^\"]*$))(?![^#]*?\\g<1>)",
@@ -185,6 +185,68 @@
 			"end": "(?=[ \\t<>:!_=]|$)",
 			"patterns": [
 				{
+					"include": "#collection"
+				},
+				{
+					"include": "#singular"
+				}
+			]
+		},
+		"collection": {
+			"patterns": [
+				{
+					"include": "#array"
+				},
+				{
+					"include": "#tuple"
+				},
+				{
+					"include": "#set"
+				}
+			]
+		},
+		"array": {
+			"begin": "(?<!\\\\)\\(",
+			"end": "(?<!\\\\)\\)",
+			"patterns": [
+				{
+					"match": ",",
+					"name": "punctuation.separator.array.yerml"
+				},
+				{
+					"include": "#singular"
+				}
+			]
+		},
+		"tuple": {
+			"begin": "(?<!\\\\)\\[",
+			"end": "(?<!\\\\)\\]",
+			"patterns": [
+				{
+					"match": ",",
+					"name": "punctuation.separator.array.yerml"
+				},
+				{
+					"include": "#singular"
+				}
+			]
+		},
+		"set": {
+			"begin": "(?<!\\\\)\\{",
+			"end": "(?<!\\\\)\\}",
+			"patterns": [
+				{
+					"match": ",",
+					"name": "punctuation.separator.array.yerml"
+				},
+				{
+					"include": "#singular"
+				}
+			]
+		},
+		"singular": {
+			"patterns": [
+				{
 					"include": "#string-quoted-double"
 				},
 				{
@@ -203,11 +265,11 @@
 		},
 		"entity-inst-name": {
 			"name": "variable.parameter.yerml",
-			"match": "_*[a-z]\\w*"
+			"match": "\\b_*[a-z]\\w*\\b"
 		},
 		"entity-type-name": {
 			"name": "entity.name.type.yerml",
-			"match": "[A-Z]\\w*"
+			"match": "\\b[A-Z]\\w*\\b"
 		},		
 		"string-quoted-double": {
 			"name": "string.quoted.double.entity.constraint.string.yerml",
@@ -242,6 +304,10 @@
 		"boolean": {
 			"name": "constant.language.boolean.yerml",
 			"match": "\\b(true|false)\\b"
+		},
+		"ellipsis": {
+			"name": "constant.language.ellipsis.yerml",
+			"match": "\\.{3}"
 		}
 	}
 }
