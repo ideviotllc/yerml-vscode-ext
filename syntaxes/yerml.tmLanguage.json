@@ -265,11 +265,11 @@
 		},
 		"entity-inst-name": {
 			"name": "variable.parameter.yerml",
-			"match": "_*[a-z]\\w*"
+			"match": "\\b_*[a-z]\\w*\\b"
 		},
 		"entity-type-name": {
 			"name": "entity.name.type.yerml",
-			"match": "[A-Z]\\w*"
+			"match": "\\b[A-Z]\\w*\\b"
 		},		
 		"string-quoted-double": {
 			"name": "string.quoted.double.entity.constraint.string.yerml",
