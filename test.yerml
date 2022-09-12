@@ -42,20 +42,47 @@ test: 2+    # Name topic, positive open ended count, no type, no constraints, ta
 test: 10-   # Name topic, negative open ended count, no type, no constraints, tabbed-out comment
 test: 0-11  # Name topic, range count, no type, no constraints, tabbed-out comment
 
-test: Test
-Test: Test2
-test: Test(AnotherTest)
-Test: Test2(AnotherTest)
+test: Test                  # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+Test: Test2                 # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+test: Test(AnotherTest)     # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+Test: Test2(AnotherTest)    # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
 
-test: = true
-test: = 1
-test: = 10
-test: = 0.1
-test: = 'test 1 = *'
-test: = "test 1 = 3"
-test: = test
+test: = true            # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+test: = 1               # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+test: = 10              # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+test: = 0.1             # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+test: = 'test 1 = *'    # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+test: = "test 1 = 3"    # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+test: = test            # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+test: = (1, 2, 3)       # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+test: = ["a", "b", "c"] # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+test: = {true, false, true} # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
 
+test: = 1               # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+test: < 1               # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+test: > 1               # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+test: <= 1              # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+test: >= 1              # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+test: != 1              # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+test: := 1              # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+test: _= 1              # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
 
+test: >= 0 <= 1         # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+
+test: 1 Test = 1        # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+test: 1 = 1 Test        # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+test: Test 1 = 1        # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+test: = 1 Test 1        # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+
+test: 1 Test =1         # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+test: 1 =1 Test         # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+test: Test 1 =1         # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+test: =1 Test 1         # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+
+test: 2 Test = 2 != 1   # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+test: != 1 Test 2 = 2   # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
+
+test: Test(Test2) = "Test(Test2(Test3))" <= ("Test3")  # Tricky comment 1 + - * 1.0 = <= >= < > != _= := : (1, 2, 3) ["4", "5", "6"] {test, test, Test}
 
 
 
@@ -70,7 +97,6 @@ mixed Multi word Topic:
 
 test: Test(test)
 test: Test(Test
-
 _
 1test
 _Test
@@ -85,3 +111,7 @@ false
 test = 1
 test = "1"
 test: =
+
+test: Test(Test(Test))
+
+test: = Test
