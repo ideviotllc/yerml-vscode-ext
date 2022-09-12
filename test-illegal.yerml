@@ -1,0 +1,37 @@
+%YERML 0.1
+---
+
+# Invalid YERML Grammar Tests
+
+# Invalid entity description topics
+_
+1test
+_Test
+__Test
+_1Test
+1Test
+Test+
+test-
+true
+false
+
+# Invalid multi-word topics
+multi word naked name topic
+Multi Word Naked Type Topic
+mixed Multi word Naked topic
+multi word name topic:
+Multi Word Type Topic:
+mixed Multi word Topic:
+
+# Descriptor type errors
+test: Test(test)
+test: Test(Test
+test: Test(Test(Test))
+
+# Invalid naked entity descriptions
+test = 1
+test = "1"
+
+# Invalid constraints
+test: =
+test: = Test
